@@ -1,12 +1,9 @@
 import { toReactElement } from './toReactElement.js';
-import { type SvelteComponent } from 'svelte';
+import { SvelteComponent } from 'svelte';
 import {render} from "svelte/server"
+import type { VNode, ComponentToJsxOptions } from '$lib/types.js';
 
-type ComponentToJsxOptions = {
-	props?: Record<string, any>
-	style?: string // Inline CSS: Svelte has removed css from component render output
-}
-export async function svelteComponentToJsx(component: SvelteComponent, { props = {} , style: componentStyle = '' }: ComponentToJsxOptions) {
-	const { body } = render(component as any, { props });
+export function svelteComponentToJsx(component: typeof SvelteComponent, { props = {} , style: componentStyle = '' }: ComponentToJsxOptions): VNode {
+	const { body } = render(component, { props });
 	return toReactElement(`${body}${componentStyle}`);
 }

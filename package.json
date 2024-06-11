@@ -1,6 +1,6 @@
 {
 	"name": "@ethercorps/svelte-h2j",
-	"version": "5.0.0-next.1",
+	"version": "5.0.0-next.2",
 	"description": "A library which uses svelte compiler to convert html & css to jsx. Useful for using satori with svelte & Kit",
 	"homepage": "https://github.com/etherCorps/svelte-h2j#readme",
 	"license": "MIT",

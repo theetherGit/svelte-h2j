@@ -2,6 +2,7 @@ import { parse } from 'svelte/compiler';
 import { walk } from "estree-walker"
 import type { Ast } from 'svelte/types/compiler/interfaces';
 import { extractStyles } from './inlineCSS.js';
+import type { VNode } from './types.js';
 
 /* Start of code from satori-html for cssToObject converter*/
 const camelize = (ident: string) => ident.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
@@ -40,14 +41,7 @@ const cssToObject = (str: string) => {
 	return obj;
 };
 const nodeMap = new WeakMap();
-interface VNode {
-	type: string;
-	props: {
-		style?: Record<string, any>;
-		children?: string | VNode | VNode[];
-		[prop: string]: any;
-	};
-}
+
 const root: VNode = {
 	type: 'div',
 	props: {
@@ -62,7 +56,7 @@ const root: VNode = {
 };
 /* End of satori-html */
 
-export function toReactElement(htmlString: string): VNode {
+function toReactElement(htmlString: string): VNode {
 	const svelteAST: Ast = parse(htmlString);
 	let styles: Record<string, string> = {};
 	if (svelteAST && svelteAST.css) {
@@ -139,3 +133,5 @@ export function toReactElement(htmlString: string): VNode {
 
 	return root;
 }
+
+export { toReactElement };
