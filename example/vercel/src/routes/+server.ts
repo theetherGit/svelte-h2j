@@ -1,4 +1,4 @@
-import type { RequestHandler} from "@sveltejs/kit";
+import { json, RequestHandler } from '@sveltejs/kit';
 import {ImageResponse} from "workers-og";
 import {toReactElement} from "@ethercorps/svelte-h2j";
 
@@ -29,5 +29,6 @@ export const GET: RequestHandler = async () => {
             </div>
         </div>
     </div>`.trim();
-    return new ImageResponse( toReactElement( htmlString ))
+    return json({})
+    // return new ImageResponse( toReactElement( htmlString ))
 };

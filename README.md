@@ -40,7 +40,7 @@
 - Compatible with new version of svelte
     - As new versions are coming for better performance in svelte we maintain that.
 - Easy to use with all available syntax in html css.
-    - Support for class based internal style.
+    - Support for class based internal style (not valid for components).
     - inline css
 
 ## How To Use
@@ -48,37 +48,22 @@
 - Install @ethercorps/svelte-h2j using your favourite node package manager.
 ```bash
 # NPM
-$ npm install @ethercorps/svelte-h2j css-tree
+$ npm install @ethercorps/svelte-h2j@next
 ```
 
 ```bash
 # PNPM
-$ pnpm install @ethercorps/svelte-h2j css-tree
+$ pnpm install @ethercorps/svelte-h2j@next
 ```
 
 ```bash
 # Yarn
-$ yarn add @ethercorps/svelte-h2j css-tree
+$ yarn add @ethercorps/svelte-h2j@next
 ```
 ```bash
 # bun
-$ bun install @ethercorps/svelte-h2j css-tree
+$ bun install @ethercorps/svelte-h2j@next
 ```
-
-- Add `vite` plugin to `vite.config.[js,ts]`
-```js
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config';
-import {vitePluginSvelteH2J} from "@ethercorps/svelte-h2j/vite"
-
-export default defineConfig({
-	plugins: [sveltekit(), vitePluginSvelteH2J()],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
-});
-```
-> This is required as we build for production and add css-tree while build.
 
 - To convert html, css to JSX (Also supports Tailwind, inline css)
 ```javascript
@@ -102,7 +87,7 @@ const htmlString =`
   </div>
 `;
 
-const jsx = toReactElement(htmlTemplate)  // Takes a string only
+const jsx = toReactElement(htmlTemplate) // Takes a string only
 const svg = await satori(jsx, {
   width: options.width,
   height: options.height,
@@ -122,9 +107,12 @@ const svg = await satori(jsx, {
 ```javascript
 import {svelteComponentToJsx} from "@ethercorps/svelte-h2j";
 import SvelteComponent from "SvelteComponent.svelte"
-const jsx = svelteComponentToJsx(SvelteComponent, props = {
-	a: 2 // if you have `export let a;` in component
-}) // Takes two parameters 1. Component 2. Component Props
+const jsx = svelteComponentToJsx(SvelteComponent, {
+	props: {
+      a: 2 // if you have `export let a;` in component
+    },
+  style: `<style> .cool { color: blue; } </style>` // Should include if you have style tag in your component, pass you style tag here as it is.
+}) // Takes two parameters 1. Component 2. Options: { props?: {}, style?: `` }
 
 const svg = await satori(jsx, {
   width: options.width,
@@ -147,6 +135,7 @@ const svg = await satori(jsx, {
 This software uses the following open source packages:
 
 - [Svelte](https://github.com/sveltejs/svelte)
+- [estree-walker](https://github.com/Rich-Harris/estree-walker)
 
 ## Related
 

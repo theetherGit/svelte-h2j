@@ -1,11 +1,9 @@
 import { toReactElement } from './toReactElement.js';
-import type {SvelteComponent} from "svelte";
+import { SvelteComponent } from 'svelte';
+import {render} from "svelte/server"
+import type { VNode, ComponentToJsxOptions } from '$lib/types.js';
 
-export function svelteComponentToJsx(component: SvelteComponent, props: Record<string, any> = {}) {
-	const SvelteRenderedMarkup = component.render(props);
-	let htmlTemplate = `${SvelteRenderedMarkup.html}`;
-	if (SvelteRenderedMarkup && SvelteRenderedMarkup.css && SvelteRenderedMarkup.css.code) {
-		htmlTemplate = `${SvelteRenderedMarkup.html}<style>${SvelteRenderedMarkup.css.code}</style>`;
-	}
-	return toReactElement(htmlTemplate);
+export function svelteComponentToJsx(component: typeof SvelteComponent, { props = {} , style: componentStyle = '' }: ComponentToJsxOptions): VNode {
+	const { body } = render(component, { props });
+	return toReactElement(`${body}${componentStyle}`);
 }
