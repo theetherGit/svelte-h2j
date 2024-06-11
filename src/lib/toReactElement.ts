@@ -1,4 +1,5 @@
-import { walk, parse } from 'svelte/compiler';
+import { parse } from 'svelte/compiler';
+import { walk } from "estree-walker"
 import type { Ast } from 'svelte/types/compiler/interfaces';
 import { extractStyles } from './inlineCSS.js';
 
@@ -81,8 +82,16 @@ export function toReactElement(htmlString: string): VNode {
 					let styleExists = false;
 					node.attributes.forEach((attribute: any) => {
 						if (Object.keys(styles).length && attribute.name === 'class') {
-							classStyles = styles[attribute.value[0].data];
+							// Remove classes added by svelte
+							const originalClasses = attribute.value[0].data.split(' ').filter((className: string) => !className.startsWith('svelte'))
+
+							classStyles = originalClasses.reduce((joinedStyles: string, className: string) => {
+								const classStyle = styles[className];
+								if (classStyle) joinedStyles += classStyle;
+								return joinedStyles;
+							}, '');
 						}
+
 						if (attribute.name === 'style') {
 							styleExists = true;
 							const newRawStyle = classStyles

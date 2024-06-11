@@ -13,17 +13,12 @@ export function extractStyles(cssAst: Style) {
 					const classNames = selector.children
 						.filter((node: any) => node.type === 'ClassSelector')
 						.map((node: any) => node.name);
-
 					for (const className of classNames) {
 						styles[className] = block.children
 							.map((declaration: Record<string, any>) => {
-								return `${declaration.property}: ${declaration.value.children
-									.map((identifier: any) => {
-										return identifier.name;
-									})
-									.join(' ')}`;
+								return `${declaration.property}: ${declaration.value}`;
 							})
-							.join('; ');
+							.join('; ') + ';';
 					}
 				}
 			}

@@ -1,6 +1,6 @@
 {
 	"name": "@ethercorps/svelte-h2j",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"description": "A library which uses svelte compiler to convert html & css to jsx. Useful for using satori with svelte & Kit",
 	"homepage": "https://github.com/etherCorps/svelte-h2j#readme",
 	"license": "MIT",
@@ -55,27 +55,30 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "^4.0.0"
+		"svelte": "next"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.24.0",
+		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.2.2",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
 		"@typescript-eslint/parser": "^5.62.0",
+		"css-tree": "^2.3.1",
 		"eslint": "^8.48.0",
 		"eslint-config-prettier": "^8.10.0",
 		"eslint-plugin-svelte": "^2.33.0",
+		"estree-walker": "^3.0.3",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
 		"publint": "^0.1.16",
-		"svelte": "^4.2.1",
+		"svelte": "5.0.0-next.153",
 		"svelte-check": "^3.5.1",
+		"svelte-json-tree": "^2.2.0",
 		"tslib": "^2.6.2",
 		"typescript": "^5.2.2",
-		"vite": "^4.4.9",
-		"vitest": "^0.34.3",
-		"css-tree": "^2.3.1"
+		"vite": "^5.0.0",
+		"vitest": "^1.0.0"
 	},
 	"types": "./dist/index.d.ts",
 	"type": "module"

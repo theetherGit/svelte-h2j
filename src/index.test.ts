@@ -58,20 +58,26 @@ describe('toReactElement', () => {
 	});
 
 	it('inlines css', async () => {
-		const result = toReactElement(`<div class="cool">Hello world</div>
+		const result = toReactElement(`<div class="cool test">Hello world</div>
       <style>
         .cool {
           color: red;
+          background: white;
+        }
+        .test {
+        background: green;
         }
       </style>`);
+
 		expect(result).toEqual(
 			wrap({
 				type: 'div',
 				props: {
 					style: {
+						background: 'green',
 						color: 'red'
 					},
-					class: 'cool',
+					class: 'cool test',
 					children: 'Hello world'
 				}
 			})

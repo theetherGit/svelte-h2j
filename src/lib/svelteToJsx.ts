@@ -1,11 +1,12 @@
 import { toReactElement } from './toReactElement.js';
-import type {SvelteComponent} from "svelte";
+import { type SvelteComponent } from 'svelte';
+import {render} from "svelte/server"
 
-export function svelteComponentToJsx(component: SvelteComponent, props: Record<string, any> = {}) {
-	const SvelteRenderedMarkup = component.render(props);
-	let htmlTemplate = `${SvelteRenderedMarkup.html}`;
-	if (SvelteRenderedMarkup && SvelteRenderedMarkup.css && SvelteRenderedMarkup.css.code) {
-		htmlTemplate = `${SvelteRenderedMarkup.html}<style>${SvelteRenderedMarkup.css.code}</style>`;
-	}
-	return toReactElement(htmlTemplate);
+type ComponentToJsxOptions = {
+	props?: Record<string, any>
+	style?: string // Inline CSS: Svelte has removed css from component render output
+}
+export async function svelteComponentToJsx(component: SvelteComponent, { props = {} , style: componentStyle = '' }: ComponentToJsxOptions) {
+	const { body } = render(component as any, { props });
+	return toReactElement(`${body}${componentStyle}`);
 }
