@@ -43,12 +43,6 @@
 			"svelte": "./dist/index.js",
 			"import": "./dist/index.js",
 			"default": "./dist/index.js"
-		},
-		"./vite": {
-			"types": "./dist/vite.d.ts",
-			"svelte": "./dist/vite.js",
-			"import": "./dist/vite.js",
-			"default": "./dist/vite.js"
 		}
 	},
 	"files": [
@@ -64,7 +58,6 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
 		"@typescript-eslint/parser": "^5.62.0",
-		"css-tree": "^2.3.1",
 		"eslint": "^8.48.0",
 		"eslint-config-prettier": "^8.10.0",
 		"eslint-plugin-svelte": "^2.33.0",
