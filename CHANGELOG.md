@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased - v5]
+## [5.0.0-next.1] - 2024-06-11
 
 ### Added
 
